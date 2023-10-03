@@ -1,6 +1,6 @@
 name: build
 
-on: [push, pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -93,4 +93,4 @@ jobs:
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3.1.3
       with:
-        path: aria2
+        path: .
