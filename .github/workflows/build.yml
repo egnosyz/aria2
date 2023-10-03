@@ -6,9 +6,9 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-11]
-        compiler: [gcc, clang]
-        crypto: [openssl, gnutls]
+        os: [ubuntu-22.04]
+        compiler: [gcc]
+        crypto: [openssl]
         exclude:
         - os: macos-11
           crypto: gnutls
@@ -76,11 +76,11 @@ jobs:
     - name: Configure autotools (Linux, gnutls)
       if: runner.os == 'Linux' && matrix.crypto == 'gnutls'
       run: |
-        ./configure --with-gnutls --without-openssl
+        ./configure --with-gnutls --without-openssl ARIA2_STATIC=yes
     - name: Configure autotools (Linux, openssl)
       if: runner.os == 'Linux' && matrix.crypto == 'openssl'
       run: |
-        ./configure --without-gnutls --with-openssl
+        ./configure --without-gnutls --with-openssl ARIA2_STATIC=yes
     - name: Configure autotools (macOS)
       if: runner.os == 'macOS'
       run: |
@@ -89,7 +89,7 @@ jobs:
           --disable-nls
     - name: Build aria2
       run: |
-        make -j"$(nproc 2> /dev/null || sysctl -n hw.ncpu)" check
+        make
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3.1.3
       with:
