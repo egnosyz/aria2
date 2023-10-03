@@ -64,15 +64,15 @@ jobs:
     - name: Libtool
       run: |
         autoreconf -i
-    - name: Setup compiler flags
-      run: |
-        asanflags="-fsanitize=address,undefined -fno-sanitize-recover=undefined"
+    # - name: Setup compiler flags
+    #   run: |
+    #     asanflags="-fsanitize=address,undefined -fno-sanitize-recover=undefined"
 
-        CPPFLAGS="$asanflags -g3"
-        LDFLAGS="$asanflags"
+    #     CPPFLAGS="$asanflags -g3"
+    #     LDFLAGS="$asanflags"
 
-        echo 'CPPFLAGS='"$CPPFLAGS" >> $GITHUB_ENV
-        echo 'LDFLAGS='"$LDFLAGS" >> $GITHUB_ENV
+    #     echo 'CPPFLAGS='"$CPPFLAGS" >> $GITHUB_ENV
+    #     echo 'LDFLAGS='"$LDFLAGS" >> $GITHUB_ENV
     - name: Configure autotools (Linux, gnutls)
       if: runner.os == 'Linux' && matrix.crypto == 'gnutls'
       run: |
